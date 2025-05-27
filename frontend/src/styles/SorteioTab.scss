@@ -1,0 +1,104 @@
+.sorteio-tab {
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.sort-button {
+  display: block;
+  margin: 0 auto 24px auto;
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 28px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.sort-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+h4 {
+  margin-top: 24px;
+  font-weight: 600;
+  color: #2e7d32;
+  border-bottom: 2px solid #a5d6a7;
+  padding-bottom: 6px;
+}
+
+.empty-message {
+  font-style: italic;
+  color: #888;
+  margin: 12px 0;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.player-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.player-name {
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+.arrived-button {
+  padding: 6px 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #333;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.arrived-button.arrived {
+  background-color: #4caf50;
+  color: white;
+}
+
+.arrived-button:hover:not(:disabled) {
+  background-color: #388e3c;
+  color: white;
+}
+
+.team-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.team-list li {
+  padding: 8px 14px;
+  background-color: #f1f8e9;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #33691e;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import { AddPlayerToGroup } from "./AddPlayerToGroup";
 import { Tabs } from "./Tabs";
 import { PresencaTab } from "./PresenceTab";
@@ -62,7 +63,9 @@ export const GroupSection = ({ groupId, groupName }: GroupSectionProps) => {
 
   return (
     <div>
-      <h3>{groupName}</h3>
+      <Link to={`/grupos/${groupId}`}>
+        <div className="group-section">{groupName}</div>
+      </Link>
       <AddPlayerToGroup groupId={groupId} onPlayerAdded={loadPlayers} />
       <Tabs
         tabs={[

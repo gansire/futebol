@@ -1,33 +1,37 @@
 import { useAuth } from '../contexts/AuthContext';
+import api from '../services/api';
 
-const API = 'http://localhost:4000/groups';
+interface Group {
+  id: number;
+  name: string;
+  isAdmin: boolean;
+}
 
 export const useGroups = () => {
   const { token } = useAuth();
 
-  const fetchGroups = async () => {
-    const res = await fetch(API, {
+  const fetchGroups = async (): Promise<Group[]> => {
+    const res = await api.get("/groups", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    if (!res.ok) throw new Error('Erro ao buscar grupos');
-    return res.json();
+    if (!res) throw new Error('Erro ao buscar grupos');
+    return res.data;
   };
 
   const createGroup = async (name: string) => {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ name }),
-    });
-
-    if (!res.ok) throw new Error('Erro ao criar grupo');
-    return res.json();
+    const res = await api.post(
+      "/groups",
+      { name },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (!res) throw new Error('Erro ao criar grupo');
+    return res.data;
   };
 
   return { fetchGroups, createGroup };

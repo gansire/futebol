@@ -1,11 +1,14 @@
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Login.scss';
 import api from '../services/api';
-
+import { useGroups } from '../hooks/useGroups';
 export function Login() {
+  
   const { login } = useAuth();
+  const { fetchGroups } = useGroups();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -18,13 +21,17 @@ export function Login() {
     try {
       const res = await api.post('/auth/login', { email, password });
       login(res.data.token, res.data.user);
-    } catch (error: any) {
-      if (error.response?.data?.message) {
-        setError(error.response.data.message);
+
+      const groups = await fetchGroups();
+      if (groups.length > 0) {
+        navigate(`/grupo/${groups[0].id}`); 
       } else {
-        setError('Erro no login');
+        navigate('/grupos');
       }
-      setPassword(''); // Limpa a senha se der erro
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Erro no login');
+      setPassword('');
+  
     } finally {
       setLoading(false);
     }

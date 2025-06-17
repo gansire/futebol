@@ -5,35 +5,35 @@ import { Register } from './pages/Register';
 import { GroupsPage } from './pages/GroupsPage';
 import { CreateGroup } from './components/CreateGroup';
 import { SearchGroups } from './components/SearchGroups';
-import { PendingInvitationsPage } from './pages/PendingInvitations';
+import { AdminInvitationsPage } from './pages/AdminInvitationsPage';
 import { GroupDetailsPage } from './pages/GroupDetailsPage';
-import "./styles/App.scss"
+import { SidebarLayout } from './layouts/SidebarLayout';
+import './styles/App.scss';
+
 function App() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
 
   return (
     <Router>
-      <div>
-        {token && <button className="logout-button" onClick={logout}>Sair</button>}
-        <Routes>
-          {!token ? (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </>
-          ) : (
-            <>
-              <Route path="/grupos" element={<GroupsPage />} />
-              <Route path="/grupos/criar" element={<CreateGroup/>} />
-              <Route path="/grupos/procurar" element={<SearchGroups />} />
-              <Route path="*" element={<Navigate to="/grupos" replace />} />
-              <Route path="/admin/convites" element={<PendingInvitationsPage />} />
-              <Route path="/grupos/:groupId" element={<GroupDetailsPage />} />
-            </>
-          )}
-        </Routes>
-      </div>
+      <Routes>
+        {!token ? (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </>
+        ) : (
+          // Rotas protegidas dentro do layout com sidebar
+          <Route path="/" element={<SidebarLayout />}>
+            <Route path="grupos" element={<GroupsPage />} />
+            <Route path="grupos/criar" element={<CreateGroup />} />
+            <Route path="grupos/procurar" element={<SearchGroups />} />
+            <Route path="grupos/invitacoes-pendentes" element={<AdminInvitationsPage />} />
+            <Route path="grupo/:groupId" element={<GroupDetailsPage />} />
+            <Route path="*" element={<Navigate to="/grupos" replace />} />
+          </Route>
+        )}
+      </Routes>
     </Router>
   );
 }

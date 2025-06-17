@@ -5,6 +5,7 @@ import { GroupSection } from '../components/GroupSection';
 import { SearchGroups } from '../components/SearchGroups';
 import '../styles/GroupsPage.scss';
 
+
 interface Group {
   id: number;
   name: string;
@@ -49,7 +50,6 @@ export const GroupsPage = () => {
         </div>
       ) : (
         <>
-          <h2>Seus Grupos</h2>
           {isAdmin && (
             <Link to="/grupos/invitacoes-pendentes">
               <button className="admin-invitations-btn">
